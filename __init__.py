@@ -1,6 +1,6 @@
-'''
+"""
 corona-daten-abfrageskill
-'''
+"""
 import json
 import datetime
 from adapt.intent import IntentBuilder
@@ -10,10 +10,10 @@ from mycroft.util.parse import extract_number
 
 
 class CovidRkiDatenabfrage(MycroftSkill):
-    '''
+    """
     Klasse für den Corona-Daten-Abfrageskill. Dieser Skill liefert mit Hilfe der
     RKI Schnittstelle aktuelle und historische Corona-Daten.
-    '''
+    """
     def __init__(self):
         MycroftSkill.__init__(self)
         self.maximalwerte_options = ['Infektionen', 'Impfungen']
@@ -22,12 +22,12 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(
         IntentBuilder('Impfungen.intent').require('ImpfungenKeyword'))
     def handle_impfungen_intent(self, message): # parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent der aktuellen Zahl der Corona-Imfpungen
         (Meldung für den gestrigen Tag). \n
         Achtung: Kann aufgrund von am Wochenende fehlenden Daten
         Fehlermeldung auswerfen.
-        '''
+        """
         number_of_vaccinations = self.get_vaccinations('1')
         if number_of_vaccinations > 0:
             self.speak('Gestern gab es {} neue Impfungen.'.format(# pylint: disable=consider-using-f-string
@@ -39,10 +39,10 @@ class CovidRkiDatenabfrage(MycroftSkill):
         IntentBuilder('Inzidenz').require('InzidenzKeyword').require(
             'AktuellKeyword'))
     def handle_inzidenz_aktuell_intent(self, message): # parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent der aktuellen 7-Tage-Inzidenz
         (Meldung für den gestrigen Tag).
-        '''
+        """
         incidence = round(self.get_incidence())
         self.speak(
             'Die Inzidenz beträgt deutschlandweit aktuell {} Neuinfektionen je 100000 Einwohner.'.format(# pylint: disable=consider-using-f-string, line-too-long
@@ -51,10 +51,10 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(IntentBuilder('Hospitalisierungsrate').require(
         'Hospitalisierungsrate').require('AktuellKeyword'))
     def handle_hospitalisierungsrate_aktuell_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent der aktuellen Hospitalisierungsrate
         (Meldung für den gestrigen Tag).
-        '''
+        """
         number_of_hospitalization = self.get_hospitalization()
         self.speak(
             'Die Hospitalisierungsrate beträgt aktuell {} je 100000 Einwohner.'.format(# pylint: disable=consider-using-f-string, line-too-long
@@ -64,10 +64,10 @@ class CovidRkiDatenabfrage(MycroftSkill):
         IntentBuilder('InfektionenAktuell').require('Infektionen').require(
             'AktuellKeyword'))
     def handle_infektionen_aktuell_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent der aktuellen Zahl der neuen Infektionen
         (Meldung für den gestrigen Tag).
-        '''
+        """
         number_of_infections = self.get_infections('1')
         self.speak('Es gab gestern {} gemeldete Infektionen.'.format(# pylint: disable=consider-using-f-string
             number_of_infections))
@@ -75,12 +75,12 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(
         IntentBuilder('InfektionenZeitraum.intent').require('Infektionen'))
     def handle_infektionen_x_tage_intent(self, message):
-        '''
+        """
         Behandelt den Intent der Infektionen in den letzten X Tagen.
         Sollte kein passender Zahlenwert erkannt werden wird der gestrige Wert
         verwendet.
         Die Werte der einzelnen Tage werden aufsummiert.
-        '''
+        """
         anzahl_tage = extract_number(message.data.get('utterance')) or 1
         neue_infektionen = self.get_infections(str(anzahl_tage))
         self.speak(
@@ -92,11 +92,11 @@ class CovidRkiDatenabfrage(MycroftSkill):
         IntentBuilder('MaximalwerteDialog.intent').require('Corona').require(
             'Maximalwerte'))
     def handle_maximalwerte_dialog_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent zur Abfrage der Maximalwerte, die dieser Skill
         zurückgeben kann. Ruft je nach Dialog den Maximalwert für Impfungen
         oder Infektionen ab.
-        '''
+        """
         self.speak('Ich kann dir folgende Maximalwerte anbieten:')
         auswahl = self.ask_selection(self.maximalwerte_options)
         if auswahl == 'Infektionen':
@@ -116,10 +116,10 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(IntentBuilder('MaximalwertImpfungen.intent').require(
         'Maximalwerte').require('ImpfungenKeyword'))
     def handle_maximalwert_impfungen_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent zur Abfrage des Maximalwerts der täglichen
         Impfungen.
-        '''
+        """
         max_vaccinations, date_of_max = self.get_max_vaccinations()
         self.speak(
             'Der Rekord liegt bei {} durchgeführten Impfungen an einem Tag und wurde am {} erzielt.'.format(# pylint: disable=consider-using-f-string, line-too-long
@@ -128,10 +128,10 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(IntentBuilder('MaximalwertInfektionen.intent').require(
         'Maximalwerte').require('Infektionen'))
     def handle_maximalwert_infektionen_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent zur Abfrage des Maximalwerts der täglichen
         Infektionen.
-        '''
+        """
         max_infections, date_of_max = self.get_max_infections()
         self.speak(
             'Der Rekord liegt bei {} gemeldeten Infektionen an einem Tag und wurde am {} erzielt.'.format(# pylint: disable=consider-using-f-string, line-too-long
@@ -140,12 +140,12 @@ class CovidRkiDatenabfrage(MycroftSkill):
     @intent_handler(IntentBuilder('DurchschnittImpfungen.intent').require(
         'ImpfungenKeyword').require('Durchschnitt'))
     def handle_durchschnitt_impfungen_letzte_x_monate_intent(self, message):
-        '''
+        """
         Behandelt den Intent zur Abfrage des Durchschnittswerts der täglichen
         Impfungen in einem Zeitraum der letzten X Monate (ein Monat entspricht
         hier 30 Tagen). Ohne Anzahl der Monate wird der Durchschnitt für die
         letzten 30 Tage ausgegeben.
-        '''
+        """
         anzahl_monate = extract_number(message.data.get('utterance'))
         if anzahl_monate is not None and anzahl_monate > 0:
             average_vaccinations_last_month = round(
@@ -163,20 +163,20 @@ class CovidRkiDatenabfrage(MycroftSkill):
 
     @intent_handler(IntentBuilder('ErsterFall.intent').require('Corona'))
     def handle_first_case_intent(self, message):# parameter message nicht relevant pylint: disable=unused-argument
-        '''
+        """
         Behandelt den Intent zur Abfrage des ersten registrierten Coronafalls
         in Deutschland.
-        '''
+        """
         self.speak(
             'Die erste Corona-Infektion in Deutschland wurde am 27.01.2020 in Bayern gemeldet.')  # Fester Wert, deshalb kein API-Aufruf notwendig. pylint: disable=line-too-long
 
     @intent_handler(IntentBuilder('InzidenzBundesland.intent').require(
         'InzidenzKeyword').require('Bundesland'))
     def handle_inzidenz_bundesland_intent(self, message):
-        '''
+        """
         Behandelt den Intent der aktuellen 7-Tage-Inzidenz je nach Bundesland
         (Meldung für den gestrigen Tag).
-        '''
+        """
         bundesland = message.data.get('Bundesland')  # Beispiel: 'Baden-Württemberg'
         inzidenz = self.get_inzidenz_in_bundesland(bundesland)
         if inzidenz >= 0:
@@ -187,14 +187,14 @@ class CovidRkiDatenabfrage(MycroftSkill):
             self.speak_dialog('Fehler')
 
     def get_vaccinations(self, number_of_days):
-        '''
+        """
         Gibt die Anzahl/Summe  der Impfungen der letzten X Tage zurück.
 
         :param number_of_days: str
         Anzahl der Tage zurückgehend von heute, von denen
         die Zahlen der Impfungen aufsummiert werden sollen.
         :return: Summe der Impfungen der letzten X Tage.
-        '''
+        """
         response = requests.get(
             self.api_endpoint + "/vaccinations/history/" + number_of_days)
         data = json.loads(response.text)
@@ -206,13 +206,13 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return total_number_of_vaccinated_people
 
     def get_infections(self, number_of_days):
-        '''
+        """
         Gibt die Anzahl/Summe der neuen Infektionen der letzten X Tage zurück.
         :param number_of_days: str
         Anzahl der Tage zurückgehend von heute, von denen
         die Zahlen der Infektionen aufsummiert werden sollen.
         :return: Summe der Infektionen der letzten X Tage.
-        '''
+        """
         response = requests.get(
             self.api_endpoint + "/germany/history/cases/" + number_of_days)
         data = json.loads(response.text)
@@ -224,12 +224,12 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return total_number_of_new_infections
 
     def get_hospitalization(self):
-        '''
+        """
         Gibt den aktuellen/gestrigen Wert für die Hospitalisierungsrate je
         100 000 Einwohner in Deutschland zurück.
 
         :return: Hospitaliserungsrate in Deutschland.
-        '''
+        """
         response = requests.get(
             self.api_endpoint + "/germany/history/hospitalization/1")
         data = json.loads(response.text)
@@ -238,12 +238,12 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return hospitalization_inzdenz
 
     def get_incidence(self):
-        '''
+        """
         Gibt den aktuellen/gestrigen Wert für die Inzidenz je 100 000 Einwohner
         in Deutschland zurück.
 
         :return: Inzidenz in Deutschland
-        '''
+        """
         response = requests.get(
             self.api_endpoint + "/germany/history/incidence/1")
         data = json.loads(response.text)
@@ -252,11 +252,11 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return inzidenz
 
     def get_max_infections(self):
-        '''
+        """
         Gibt den Maximalwert für Infektionen an einem Tag in Deutschland an.
 
         :return: Maximalwert tägliche Infektionen in Deutschland.
-        '''
+        """
         response = requests.get(self.api_endpoint + "/germany/history/cases")
         data = json.loads(response.text)
         data_array = data['data']
@@ -272,11 +272,11 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return maximalwert, datetime_of_max
 
     def get_max_vaccinations(self):
-        '''
+        """
         Gibt den Maximalwert für Impfungen an einem Tag in Deutschland an.
 
         :return: Maximalwert tägliche Impfungen in Deutschland.
-        '''
+        """
         response = requests.get(self.api_endpoint + "/vaccinations/history")
         data = json.loads(response.text)
         data_array = data['data']['history']
@@ -292,14 +292,14 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return maximalwert, datetime_of_max
 
     def get_average_vaccinations_last_x_months(self, number_of_months):
-        '''
+        """
         Gibt den Durchschnitt der Impfungen in Deutschland der letzten X Monate
         zurück. Ein Monat entspricht 30 Tagen.
 
         :param number_of_months: str
         Anzahl der Monate für die Betrachtung des Durchschnitts
         :return: Durschnitt der Impfungen der letzten X Moante.
-        '''
+        """
         response = requests.get(
             self.api_endpoint + "/vaccinations/history/{}".format(# pylint: disable=consider-using-f-string
                 (number_of_months * 30)))
@@ -314,14 +314,14 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return average
 
     def get_inzidenz_in_bundesland(self, bundesland):
-        '''
+        """
         Gibt die 7-Tage-Inzidenz für das jeweilige Bundesland zurück.
 
         :param bundesland: str
         Eines der 16 Bundesländer der Bundesrepublik Deutschland.
         :return: 7-Tage-Inzidenz des jeweilgen Bundeslands oder falls kein
         korrektes Bundesland als Parameter -1
-        '''
+        """
         response = requests.get(self.api_endpoint + "/states")
         data = json.loads(response.text)
         data_points = data['data']
@@ -333,15 +333,15 @@ class CovidRkiDatenabfrage(MycroftSkill):
         return -1
 
     def stop(self):
-        '''
+        """
         Default Funktion benötigt von MyCroft.
-        '''
+        """
         pass # pylint: disable=unnecessary-pass
 
 
 def create_skill():
-    '''
+    """
     Default Funktion von MyCroft zum Abrufen einer Instanz des Skills.
     :return: Instanz der Klasse.
-    '''
+    """
     return CovidRkiDatenabfrage()
