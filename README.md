@@ -10,7 +10,6 @@ durchschnittliche Impfungen im letzten Monat bereit.
 * "Wie hoch ist die Inzidenz aktuell?"
 * "Wie hoch ist die Inzidenz in Baden-Württemberg?"
 * "Wie hoch ist die Hospitalisierungsrate aktuell?"
-* "Wann war der Tag mit den meisten Infektionen?"
 * "Was war der Rekord für tägliche Infektionen?"
 * "Was war der Rekord für tägliche Impfungen?"
 * "Wann wurde die erste Corona Infektion in Deutschland erfasst?"
