@@ -1,0 +1,7 @@
+Wie viele Infektionen gab es in der letzten Woche?
+Wie viele Infektionen gab es in den letzten 3 Tagen?
+Wie viele Infektionen gab es durchschnittlich in den letzten 12 Monaten?
+Wie viele Corona-Infektionen gab es in der letzten Woche?
+Wie viele Corona-Infektionen gab es in den letzten 14 Tagen?
+Wie viele Corona-Infektionen gab es durchschnittlich in den letzten 2 Monaten?
+(Wie|Was) (war die Anzahl von|viele) Corona-Infektionen gab es in (der letzten|den letzten {anzahl}) {zeiteinheit}?

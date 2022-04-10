@@ -1,26 +1,36 @@
 # <img src="https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/virus.svg" card_color="#000000" width="50" height="50" style="vertical-align:bottom"/> Covid Rki Datenabfrage
-Liefert covid-daten des rki.
+Liefert Covid-Daten des RKI.
 
 ## About
-Liefert aktuelle und historische covid-daten des rki sowie berechnete maximalwerte oder durchschnitte.
+Dieser Skill liefert aktuelle und historische Covid-Daten des RKI. Außerdem stehen
+berechnete Maximalwerte bei Impfungen und Infektionen sowie 
+durchschnittliche Impfungen im letzten Monat bereit.
 
 ## Examples
-* "Wie hoch ist die izidenz?"
-* "Wie hoch ist die inzidenz in baden-württemberg?"
-* "Wie hoch ist die aktuelle hospitalisierungsrate?"
-* "Wann war der tag mit den meisten infektionen?"
-* "Wie hoch war der rekord für impfungen an einem tag?"
-* "Wann wurde der erste coronafall in deutschland erfasst?"
-* "Welche covid-maximalwerte kannst du mir nennen?"
+* "Wie hoch ist die Inzidenz aktuell?"
+* "Wie hoch ist die Inzidenz in Baden-Württemberg?"
+* "Wie hoch ist die Hospitalisierungsrate aktuell?"
+* "Wann war der Tag mit den meisten Infektionen?"
+* "Was war der Rekord für tägliche Infektionen?"
+* "Was war der Rekord für tägliche Impfungen?"
+* "Wann wurde die erste Corona Infektion in Deutschland erfasst?"
+* "Welche Maximalwerte zu Corona kann ich abfragen?"
 
 ## Credits
 MarcoSimone25
+
+Data from: https://api.corona-zahlen.org
+
+> Robert Koch-Institut
+> 
+>Contact: Marlon Lueckert (m.lueckert@me.com)
+>
+>Info: https://github.com/marlon360/rki-covid-api
 
 ## Category
 **Information**
 
 ## Tags
-#Covi
 #Covid
 #Corona
 #Infektionen
