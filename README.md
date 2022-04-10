@@ -7,9 +7,11 @@ berechnete Maximalwerte bei Impfungen und Infektionen sowie
 durchschnittliche Impfungen im letzten Monat bereit.
 
 ## Examples
-* "Wie hoch ist die Inzidenz aktuell?"
+* "Wie hoch ist die Inzidenz/Zahl der Impfungen aktuell?"
 * "Wie hoch ist die Inzidenz in Baden-Württemberg?"
 * "Wie hoch ist die Hospitalisierungsrate aktuell?"
+* "Wie viele Infektionen gab es in den letzten 7 Tagen?"
+* "Wie viele Impfungen wurden in den letzten 3 Monaten durchschnittlich durchgeführt?"
 * "Was war der Rekord für tägliche Infektionen?"
 * "Was war der Rekord für tägliche Impfungen?"
 * "Wann wurde die erste Corona Infektion in Deutschland erfasst?"
